@@ -1,0 +1,19 @@
+{
+  "name": "denv",
+  "version": "1.0.0",
+  "description": "Easy load environment variables in your app inside docker container",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/test_common.js"
+  },
+  "keywords": [
+    "environment",
+    "docker",
+    "container"
+  ],
+  "author": "Andrei Tretyakov <andrei.tretyakov@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^3.0.2"
+  }
+}
