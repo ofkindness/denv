@@ -1,6 +1,6 @@
 {
   "name": "denv",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Easy load environment variables in your app inside docker container",
   "main": "index.js",
   "scripts": {

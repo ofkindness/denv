@@ -9,7 +9,7 @@ function prefix(env) {
   const prefix = Object.keys(env).filter(function(key) {
     return new RegExp('_NAME').test(key);
   }).shift();
-  return prefix.replace('_NAME', '');
+  return (prefix || '').replace('_NAME', '');
 }
 
 module.exports = function(alias, env) {
@@ -18,16 +18,16 @@ module.exports = function(alias, env) {
 
   const tcpAddr = env[alias.toUpperCase() + '_PORT'] || '';
 
-  function addr() {
-    return (tcpAddr.split(':')[1] || '').replace('//', '');
+  function addr(defaultValue) {
+    return (tcpAddr.split(':')[1] || defaultValue || '').replace('//', '');
   }
 
-  function port() {
-    return tcpAddr.split(':')[2] || '';
+  function port(defaultValue) {
+    return tcpAddr.split(':')[2] || defaultValue || '';
   }
 
-  function proto() {
-    return tcpAddr.split(':')[0] || '';
+  function proto(defaultValue) {
+    return tcpAddr.split(':')[0] || defaultValue || '';
   }
 
   return {

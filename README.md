@@ -17,11 +17,19 @@ USAGE
 ```js
 const d = require('denv')();
 
-const conString = 'postgres://' + d.env('postgres_user') +
-    ':' + d.env('postgres_password') +
-    '@' + d.addr() +
-    ':' + d.port() +
-    '/' + d.env('database', 'test');
+// Postgres example
+const conString = 'postgres://' + d.env('postgres_user', 'postgres') +
+    ':' + d.env('postgres_password', 'mysecretpassword') +
+    '@' + d.addr('127.0.0.1') +
+    ':' + d.port('5432') +
+    '/' + d.env('database', 'postgres');
+
+// Redis example
+const conString = 'redis://' + d.env('redis_user', '') +
+    ':' + d.env('redis_password', '') +
+    '@' + d.addr('127.0.0.1') +
+    ':' + d.port('6379') +
+    '/' + d.env('db', 0);
 ```
 
 Tests
