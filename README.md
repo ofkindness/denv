@@ -17,23 +17,23 @@ USAGE
 -----
 
 ```js
-import denv from 'denv';
+const denv = require('denv');
 
-const d = denv();
+const { env, addr, port } = denv();
 
 // Redis example
-const conString = `redis://${d.env('redis_user', '')}\
-:${d.env('redis_password', '')}\
-@${d.addr('127.0.0.1')}\
-:${d.port('6379')}\
-/${d.env('db', 0)}`;
+const conString = `redis://${env('redis_user', '')}\
+:${env('redis_password', '')}\
+@${addr('127.0.0.1')}\
+:${port('6379')}\
+/${env('db', 0)}`;
 
 // Postgres example
-const conString = `postgres://${d.env('postgres_user', 'postgres')}\
-:${d.env('postgres_password', 'mysecretpassword')}\
-@${d.addr('127.0.0.1')}\
-:${d.port('5432')}\
-/${d.env('database', 'postgres')}`;
+const conString = `postgres://${env('postgres_user', 'postgres')}\
+:${env('postgres_password', 'mysecretpassword')}\
+@${addr('127.0.0.1')}\
+:${port('5432')}\
+/${env('database', 'postgres')}`;
 ```
 
 Tests

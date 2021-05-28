@@ -3,7 +3,7 @@
 var assert = require('assert');
 
 describe('Link without alias', function() {
-  const env = {
+  const envData = {
     SOME_POSTGRES_PORT: 'tcp://172.17.0.2:5432',
     SOME_POSTGRES_PORT_5432_TCP: 'tcp://172.17.0.2:5432',
     SOME_POSTGRES_PORT_5432_TCP_ADDR: '172.17.0.2',
@@ -15,36 +15,36 @@ describe('Link without alias', function() {
     SOME_POSTGRES_ENV_no_proxy: '*.local, 169.254/16',
     SOME_POSTGRES_ENV_SOME_NAME: 'SOME_NAME'
   };
-  const qwer = require('../index.js')(null, env);
+  const { addr, env, proto, port } = require('../index.js')(null, envData);
 
   it('should return port', function() {
 
-    assert.equal(qwer.port(), '5432');
+    assert.strictEqual(port(), '5432');
   });
 
   it('should return addr', function() {
-    assert.equal(qwer.addr(), '172.17.0.2');
+    assert.strictEqual(addr(), '172.17.0.2');
   });
 
   it('should return proto', function() {
-    assert.equal(qwer.proto(), 'tcp');
+    assert.strictEqual(proto(), 'tcp');
   });
 
   it('should return postgres_user', function() {
-    assert.equal(qwer.env('postgres_user'), 'test');
+    assert.strictEqual(env('postgres_user'), 'test');
   });
 
   it('should return postgres_password', function() {
-    assert.equal(qwer.env('postgres_password'), 'mysecretpassword');
+    assert.strictEqual(env('postgres_password'), 'mysecretpassword');
   });
 
   it('should return no_proxy', function() {
-    assert.equal(qwer.env('no_proxy'), '*.local, 169.254/16');
+    assert.strictEqual(env('no_proxy'), '*.local, 169.254/16');
   });
 });
 
 describe('Link with alias', function() {
-  const env = {
+  const envData = {
     QWER_PORT: 'tcp://172.17.0.2:5432',
     QWER_PORT_5432_TCP: 'tcp://172.17.0.2:5432',
     QWER_PORT_5432_TCP_ADDR: '172.17.0.2',
@@ -55,30 +55,31 @@ describe('Link with alias', function() {
     QWER_ENV_POSTGRES_USER: 'test',
     QWER_ENV_no_proxy: '*.local, 169.254/16'
   };
-  const qwer = require('../index.js')('qwer', env);
+
+  const { addr, env, proto, port } = require('../index.js')('qwer', envData);
 
   it('should return port', function() {
 
-    assert.equal(qwer.port(), '5432');
+    assert.strictEqual(port(), '5432');
   });
 
   it('should return addr', function() {
-    assert.equal(qwer.addr(), '172.17.0.2');
+    assert.strictEqual(addr(), '172.17.0.2');
   });
 
   it('should return proto', function() {
-    assert.equal(qwer.proto(), 'tcp');
+    assert.strictEqual(proto(), 'tcp');
   });
 
   it('should return postgres_user', function() {
-    assert.equal(qwer.env('postgres_user'), 'test');
+    assert.strictEqual(env('postgres_user'), 'test');
   });
 
   it('should return postgres_password', function() {
-    assert.equal(qwer.env('postgres_password'), 'mysecretpassword');
+    assert.strictEqual(env('postgres_password'), 'mysecretpassword');
   });
 
   it('should return no_proxy', function() {
-    assert.equal(qwer.env('no_proxy'), '*.local, 169.254/16');
+    assert.strictEqual(env('no_proxy'), '*.local, 169.254/16');
   });
 });
